@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
+use App\Mail\NewUserWelcomeMail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,10 @@ Route::get('/', function () {
 
 // Auth::routes(['register' => false]);
 Auth::routes();
+
+Route::get('/email', function(){
+    return new NewUserWelcomeMail();
+});
 
 // Posts Controller
 Route::get('/', [PostsController::class, 'index'])->name('posts.show');
