@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowsController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -23,13 +24,16 @@ Route::get('/', function () {
 // Auth::routes(['register' => false]);
 Auth::routes();
 
-Route::get('/p/create', 'App\Http\Controllers\PostsController@create');
-// Route::get('/p', [App\Http\Controllers\PostsController::class, 'create'])->name('profile.create');
-
+// Posts Controller
+Route::get('/', [PostsController::class, 'index'])->name('posts.show');
+Route::get('/p/create', [PostsController::class, 'create']);
 Route::post('/p', [PostsController::class, 'store'])->name('profile.store');
 Route::get('/p/{post}', [PostsController::class, 'show']);
-Route::get('/profile/{user}', [ProfileController::class, 'index'])->name('profile.show');
 
-// Route::get('/profile/{user}', 'App\Http\Controllers\ProfileController@index' ) ;
+// Profile Controller
+Route::get('/profile/{user}', [ProfileController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit' , [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile/{user}' , [ProfileController::class, 'update'])->name('profile.update');
+
+// Follow Button Controller
+Route::post('/follow/{user}', [FollowsController::class, 'store']);

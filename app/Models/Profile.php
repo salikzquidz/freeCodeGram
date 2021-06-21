@@ -20,4 +20,9 @@ class Profile extends Model
         $defaultImagePath = "https://i.stack.imgur.com/l60Hf.png";
         return ($this->image) ? '/storage/' . $this->image : $defaultImagePath;
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
